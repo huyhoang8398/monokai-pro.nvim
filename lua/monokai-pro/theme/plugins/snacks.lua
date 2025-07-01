@@ -8,8 +8,9 @@ function M.get(c, config, hp)
   local transparent_bg = c.editor.background
   local transparent_bg_border = c.base.dimmed2
   local common_fg = hp.lighten(c.sideBar.foreground, 30)
-  local notifier_bg = hp.lighten(c.base.dimmed5, 10)
-  local dashboard_bg = c.base.dimmed5
+  local notifier_bg = hp.blend(c.base.dimmed5, 0.2, c.editor.background)
+  local dashboard_bg = hp.blend(c.base.dimmed5, 0.15, c.editor.background)
+  local picker_bg = hp.blend(c.base.dimmed5, 0.25, c.editor.background)
 
   return {
     -- Base UI
@@ -23,10 +24,13 @@ function M.get(c, config, hp)
     SnacksNormalNC = { link = "SnacksNormal" },
     SnacksWinBar = {
       fg = c.base.yellow,
-      bg = isBackgroundClear and transparent_bg or c.base.dimmed5,
+      bg = isBackgroundClear and transparent_bg or hp.blend(c.base.yellow, 0.1, c.editor.background),
       bold = true,
     },
-    SnacksWinBarNC = { link = "SnacksWinBar" },
+    SnacksWinBarNC = {
+      fg = c.base.dimmed3,
+      bg = isBackgroundClear and transparent_bg or hp.blend(c.base.dimmed5, 0.1, c.editor.background),
+    },
     SnacksBackdrop = {
       fg = c.base.dark2,
       bg = isBackgroundClear and transparent_bg or c.base.dimmed5,
@@ -34,107 +38,112 @@ function M.get(c, config, hp)
 
     -- Notifier: Info
     SnacksNotifierInfo = {
-      fg = c.base.accent4,
+      fg = c.base.cyan,
       bg = isBackgroundClear and transparent_bg or notifier_bg,
     },
     SnacksNotifierIconInfo = {
-      fg = c.base.accent4,
+      fg = c.base.cyan,
       bg = isBackgroundClear and transparent_bg or notifier_bg,
+      bold = true,
     },
     SnacksNotifierTitleInfo = {
-      fg = c.base.accent4,
+      fg = c.base.cyan,
       bg = isBackgroundClear and transparent_bg or c.base.yellow,
       bold = true,
       italic = true,
     },
     SnacksNotifierFooterInfo = { link = "DiagnosticInfo" },
     SnacksNotifierBorderInfo = {
-      fg = c.base.accent4,
-      bg = isBackgroundClear and transparent_bg or notifier_bg,
+      fg = c.base.cyan,
+      bg = isBackgroundClear and transparent_bg or transparent_bg_border,
     },
 
     -- Notifier: Warn
     SnacksNotifierWarn = {
-      fg = c.base.accent2,
+      fg = c.base.yellow,
       bg = isBackgroundClear and transparent_bg or notifier_bg,
     },
     SnacksNotifierIconWarn = {
-      fg = c.base.accent2,
+      fg = c.base.yellow,
       bg = isBackgroundClear and transparent_bg or notifier_bg,
+      bold = true,
     },
     SnacksNotifierTitleWarn = {
-      fg = c.base.accent2,
+      fg = c.base.yellow,
       bg = isBackgroundClear and transparent_bg or c.base.yellow,
       bold = true,
       italic = true,
     },
     SnacksNotifierFooterWarn = { link = "DiagnosticWarn" },
     SnacksNotifierBorderWarn = {
-      fg = c.base.accent2,
-      bg = isBackgroundClear and transparent_bg or notifier_bg,
+      fg = c.base.yellow,
+      bg = isBackgroundClear and transparent_bg or transparent_bg_border,
     },
 
     -- Notifier: Debug
     SnacksNotifierDebug = {
-      fg = c.base.accent2,
+      fg = c.base.blue,
       bg = isBackgroundClear and transparent_bg or notifier_bg,
     },
     SnacksNotifierIconDebug = {
-      fg = c.base.accent2,
+      fg = c.base.blue,
       bg = isBackgroundClear and transparent_bg or notifier_bg,
+      bold = true,
     },
     SnacksNotifierTitleDebug = {
-      fg = c.base.accent2,
+      fg = c.base.blue,
       bg = isBackgroundClear and transparent_bg or c.base.yellow,
       bold = true,
       italic = true,
     },
     SnacksNotifierFooterDebug = { link = "DiagnosticHint" },
     SnacksNotifierBorderDebug = {
-      fg = c.base.accent2,
-      bg = isBackgroundClear and transparent_bg or notifier_bg,
+      fg = c.base.blue,
+      bg = isBackgroundClear and transparent_bg or transparent_bg_border,
     },
 
     -- Notifier: Error
     SnacksNotifierError = {
-      fg = c.base.accent1,
+      fg = c.base.red,
       bg = isBackgroundClear and transparent_bg or notifier_bg,
     },
     SnacksNotifierIconError = {
-      fg = c.base.accent1,
+      fg = c.base.red,
       bg = isBackgroundClear and transparent_bg or notifier_bg,
+      bold = true,
     },
     SnacksNotifierTitleError = {
-      fg = c.base.accent1,
+      fg = c.base.red,
       bg = isBackgroundClear and transparent_bg or c.base.yellow,
       bold = true,
       italic = true,
     },
     SnacksNotifierFooterError = { link = "DiagnosticError" },
     SnacksNotifierBorderError = {
-      fg = c.base.accent1,
-      bg = isBackgroundClear and transparent_bg or notifier_bg,
+      fg = c.base.red,
+      bg = isBackgroundClear and transparent_bg or transparent_bg_border,
     },
 
     -- Notifier: Trace
     SnacksNotifierTrace = {
-      fg = common_fg,
+      fg = c.base.dimmed1,
       bg = isBackgroundClear and transparent_bg or notifier_bg,
     },
     SnacksNotifierIconTrace = {
-      fg = common_fg,
+      fg = c.base.dimmed1,
       bg = isBackgroundClear and transparent_bg or notifier_bg,
+      bold = true,
     },
     SnacksNotifierTitleTrace = {
-      fg = common_fg,
+      fg = c.base.dimmed1,
       bg = isBackgroundClear and transparent_bg or c.base.yellow,
       bold = true,
       italic = true,
     },
     SnacksNotifierFooterTrace = { link = "DiagnosticHint" },
     SnacksNotifierBorderTrace = {
-      fg = common_fg,
-      bg = isBackgroundClear and transparent_bg or notifier_bg,
+      fg42 = c.base.dimmed1,
+      bg = isBackgroundClear and transparent_bg or transparent_bg_border,
     },
 
     -- Dashboard
@@ -143,38 +152,45 @@ function M.get(c, config, hp)
       bg = isBackgroundClear and transparent_bg or dashboard_bg,
     },
     SnacksDashboardDesc = {
-      fg = c.base.accent4,
+      fg = c.base.cyan,
       bg = isBackgroundClear and transparent_bg or dashboard_bg,
     },
     SnacksDashboardFile = {
-      fg = c.base.accent5,
+      fg = c.base.green,
       bg = isBackgroundClear and transparent_bg or dashboard_bg,
     },
-    SnacksDashboardDir = { link = "NonText" },
+    SnacksDashboardDir = {
+      fg = c.base.dimmed4,
+      bg = isBackgroundClear and transparent_bg or dashboard_bg,
+    },
     SnacksDashboardFooter = {
-      fg = c.base.accent3,
+      fg = c.base.magenta,
       bg = isBackgroundClear and transparent_bg or dashboard_bg,
       italic = true,
     },
     SnacksDashboardHeader = {
-      fg = c.base.accent4,
+      fg = c.base.cyan,
       bg = isBackgroundClear and transparent_bg or dashboard_bg,
       bold = true,
     },
     SnacksDashboardIcon = {
-      fg = c.base.accent1,
+      fg = c.base.red,
       bg = isBackgroundClear and transparent_bg or dashboard_bg,
       bold = true,
     },
     SnacksDashboardKey = {
-      fg = c.base.accent2,
+      fg = c.base.blue,
       bg = isBackgroundClear and transparent_bg or dashboard_bg,
+      bold = true,
     },
     SnacksDashboardTerminal = { link = "SnacksDashboardNormal" },
-    SnacksDashboardSpecial = { link = "Special" },
+    SnacksDashboardSpecial = {
+      fg = c.base.magenta,
+      bg = isBackgroundClear and transparent_bg or dashboard_bg,
+    },
     SnacksDashboardTitle = {
       fg = c.base.yellow,
-      bg = isBackgroundClear and transparent_bg or dashboard_bg,
+      bg = isBackgroundClear and transparent_bg or c.base.dark2,
       bold = true,
     },
 
@@ -191,28 +207,28 @@ function M.get(c, config, hp)
     -- Picker
     SnacksPicker = {
       fg = common_fg,
-      bg = isBackgroundClear and transparent_bg or c.editorHoverWidget.background,
+      bg = isBackgroundClear and transparent_bg or picker_bg,
     },
     SnacksPickerBorder = {
-      fg = isBackgroundClear and c.tab.unfocusedActiveBorder or c.editorHoverWidget.background,
-      bg = isBackgroundClear and transparent_bg or c.editorHoverWidget.background,
+      fg = isBackgroundClear and c.tab.unfocusedActiveBorder or c.base.dimmed3,
+      bg = isBackgroundClear and transparent_bg or picker_bg,
     },
     SnacksPickerInputBorder = {
       fg = isBackgroundClear and transparent_bg_border or notifier_bg,
-      bg = isBackgroundClear and transparent_bg or notifier_bg,
+      bg = isBackgroundClear and transparent_bg or picker_bg,
     },
     SnacksPickerSelected = isBackgroundClear and {
-      fg = c.base.accent1,
+      fg = c.base.cyan,
       bg = hp.blend(c.editorSuggestWidget.selectedBackground, 0.3, transparent_bg),
       bold = true,
     } or {
       fg = common_fg,
-      bg = hp.blend(c.base.accent1, 0.2, dashboard_bg),
+      bg = hp.blend(c.base.cyan, 0.2, picker_bg),
       bold = true,
     },
     SnacksPickerMatch = {
-      fg = c.base.accent4,
-      bg = isBackgroundClear and transparent_bg or dashboard_bg,
+      fg = c.base.blue,
+      bg = isBackgroundClear and transparent_bg or picker_bg,
       bold = true,
     },
   }
